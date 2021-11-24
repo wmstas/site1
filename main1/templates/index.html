@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block main %}
+
+<div id="navbar">
+  {% for gType in types %}
+  <a class="nav_item" id="navEl" href="/{{gType.addr}}">
+    <div>
+      <img class="noColor" src="/static/icons/{{gType.imageLink}}" /><br />{{gType.name}}
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<div id="box_all">
+  <div id="box_left">
+    {% for gCat in cats %}
+    <a class="noUnder" href="/{{gCat.linkT.addr}}/{{gCat.addr}}/">
+      <div id="catItem" class="textX black">{{gCat.name}}</div>
+    </a>
+    {% empty %}
+    <img src="static/icons/defCategory.png" />
+    {% endfor %}
+  </div>
+
+  <div id="box_right">
+    <div id="goods_menu" class="textX">
+      These are our goods! You are welcome to buy these things!
+    </div>
+
+    <div id="goods_list">
+      {% for good in goods %}
+      <a id="good" class="noUnder goodBox" href="/{{good.linkT.addr}}/{{good.linkC.addr}}/{{good.id}}">
+        <img src="/static/images/{{good.imageLink}}" width="100%" /><br />
+        <p class="textX">{{good.name}}</p>
+        <p class="textXX">$ {{good.price}}</p>
+      </a>
+      {% empty %}
+      <div class="margin40">
+        <p>... sorry, no goods here ...</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock main %}

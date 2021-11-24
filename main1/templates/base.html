@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/sstyles.css" />
+    <title>SHOPKA - internet shopping center</title>
+</head>
+
+<body>
+    <div id="appbar">
+        <a id="appbar__logo" href="/" class="noUnder white big">S</a>
+        <a class="big noUnder black" href="/">Shopka</a>
+        <div id="freeSpace"></div>
+        {% if user.is_authenticated %}
+            <p>You are logging as: <b>{{ user.username }}</b> (</p>
+            <a href="/slogout"> logout </a> )
+            {% if cartCount > 0 %}
+                <a class="width70" href="/cart">
+                <img src="/static/icons/cart.png" width="40">
+                <p class="cartCount black">{{cartCount}}</p>
+            </a>
+            {% endif %}
+        {% else %}
+            <form action="/sauth" method="POST">{% csrf_token %}
+                name: <input type="login" name="name" />
+                pass: <input type="password" name="pass" />
+                <input type="submit" name="variant" value="login" />
+                <input type="submit" name="variant" value="register" />
+            </form>
+        {% endif %}
+    </div>
+
+    <div id="maindiv">
+        {% block main %}{% endblock main %}
+    </div>
+</body>
+
+</html>

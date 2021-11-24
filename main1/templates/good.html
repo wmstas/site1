@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block main %}
+
+<div id="box_all">
+    <div id="good_left">
+        <div class="goodBox">
+            <img src="/static/images/{{good.imageLink}}" width="100%" /><br />
+            <p class="textX">Good name: {{good.name}}</p>
+            <p class="textX">Date added: {{good.dateAdded}}</p>
+            <p class="textXX">Price: $ {{good.price}}</p>
+            {% if user.is_authenticated %}
+            <a class="noUnder" href="/cartadd/{{good.id}}">
+                <div id="catItem" class="textX black">Buy it!</div>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="box_right">
+        <div id="goods_menu" class="textX">
+            Please, write your comments here!
+        </div>
+
+        <div class="margin40">
+            {% for comment in comments %}
+            <p>
+                <b>{{comment.linkU.username}}, {{comment.dateAdded}}:</b><br>
+                {{comment.comment}}
+            </p>
+            {% empty %}
+            <p>... sorry, but still no comment here...</p>
+            {% endfor %}
+
+            {% if user.is_authenticated %}
+            <hr>
+            <form method="post">{% csrf_token %}
+                <textarea name="comment" rows="10" cols="90"></textarea><br>
+                <input type="submit" value="add comment" />
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+
+    {% endblock main %}

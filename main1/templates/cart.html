@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block main %}
+
+<div id="box_all">
+
+    <div id="goods_menu" class="textX heightCart">
+        <br>Ready to buy these following items?<br><br>
+        {% if cart_sum != "$ 0" %}
+        <a href="/makeorder" id="catItem" class="textX noUnder">Make order, total {{cart_sum}}</a>
+        {% endif %}
+    </div>
+
+    <div class="margin40">
+        {% for cart in carts %}
+        <div class="ligthBox">
+            <a href="/cartdelete/{{cart.linkG.id}}" id="catItem" class="textX noUnder">X</a>
+            <img src="/static/images/{{cart.linkG.imageLink}}" width="70px"><b>{{cart.linkG.name}} for $ {{cart.linkG.price}}</b><br>
+        </div>
+        {% empty %}
+        <p>... empty cart, please select some goods ...</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+{% endblock main %}
